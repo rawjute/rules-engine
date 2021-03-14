@@ -4,31 +4,30 @@ import com.rawjute.rulesengine.rule.ParameterizedRuleAction;
 import com.rawjute.rulesengine.rule.VoidRuleAction;
 import com.rawjute.rulesengine.rule.RuleCondition;
 import com.rawjute.rulesengine.rule.Rule;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+@Service
+public class RulesEngine {
 
-@Component
-public class RulesEngineManager {
+    private final RulesDataSource rulesDataSource;
 
-    private static final Map<String, List<Rule>> rulesMap = new ConcurrentHashMap<>();
+    public RulesEngine(RulesDataSource rulesDataSource) {
+        this.rulesDataSource = rulesDataSource;
+    }
 
-    public RulesEngineConditionManager when(String triggerName) {
-        Rule rule = new Rule();
-        if (!rulesMap.containsKey(triggerName)) {
-            rulesMap.put(triggerName, new LinkedList<>());
-        }
-        rulesMap.get(triggerName).add(rule);
-        return new RulesEngineConditionManager(this, rule);
+    public RulesEngine removeRule(String ruleId) {
+        rulesDataSource.removeRule(ruleId);
+        return this;
+    }
+
+    public RulesEngine saveRule(Rule rule) {
+        rulesDataSource.addRule(rule);
+        return this;
     }
 
     void evaluateRules(String triggerName) {
-        rulesMap.entrySet().stream()
-                .filter(e -> e.getKey().equals(triggerName))
-                .flatMap(e -> e.getValue().stream())
+        rulesDataSource.getRules().stream()
+                .filter(e -> e.getTrigger().isEmpty() ||  e.getTrigger().get().equals(triggerName))
                 .filter(r -> r.getConditions().stream().allMatch(RuleCondition::checkCondition))
                 .forEach(r -> r.getActions().forEach(a -> {
                     if (a instanceof VoidRuleAction) {

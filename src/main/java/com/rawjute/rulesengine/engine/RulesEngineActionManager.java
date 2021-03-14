@@ -7,11 +7,9 @@ import com.rawjute.rulesengine.rule.Rule;
 
 public class RulesEngineActionManager {
 
-    private final RulesEngineManager rulesEngineManager;
     private final Rule rule;
 
-    RulesEngineActionManager(RulesEngineManager rulesEngineManager, Rule rule) {
-        this.rulesEngineManager = rulesEngineManager;
+    RulesEngineActionManager(Rule rule) {
         this.rule = rule;
     }
 
@@ -25,7 +23,7 @@ public class RulesEngineActionManager {
         return this;
     }
 
-    public RulesEngineConditionManager when(String triggerName) {
-        return rulesEngineManager.when(triggerName);
+    public Rule build() {
+        return rule;
     }
 }

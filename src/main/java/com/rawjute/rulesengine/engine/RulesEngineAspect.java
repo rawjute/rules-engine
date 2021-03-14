@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class RulesEngineAspect {
 
-    private final RulesEngineManager rulesEngineManager;
+    private final RulesEngine rulesEngine;
 
-    public RulesEngineAspect(RulesEngineManager rulesEngineManager) {
-        this.rulesEngineManager = rulesEngineManager;
+    public RulesEngineAspect(RulesEngine rulesEngine) {
+        this.rulesEngine = rulesEngine;
     }
 
     @After("@annotation(trigger)")
     public void after(JoinPoint joinPoint, Trigger trigger) {
-        rulesEngineManager.evaluateRules(trigger.value());
+        rulesEngine.evaluateRules(trigger.value());
     }
 }

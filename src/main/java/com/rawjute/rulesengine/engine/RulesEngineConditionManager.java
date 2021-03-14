@@ -10,8 +10,8 @@ public class RulesEngineConditionManager {
     private final RulesEngineActionManager rulesEngineActionManager;
     private final Rule rule;
 
-    RulesEngineConditionManager(RulesEngineManager rulesEngineManager, Rule rule) {
-        this.rulesEngineActionManager = new RulesEngineActionManager(rulesEngineManager, rule);
+    RulesEngineConditionManager(Rule rule) {
+        this.rulesEngineActionManager = new RulesEngineActionManager(rule);
         this.rule = rule;
     }
 
