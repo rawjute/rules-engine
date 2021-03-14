@@ -123,3 +123,5 @@ rulesEngine.saveRule(rule);
 Now every time the `weatherChanged()` method is invoked, we will see this prints:
 > `Weather rule test`
 > `Weather changed`
+
+It is important to keep in mind that the `@Trigger` annotation only works on method of Spring objects, because AOP takes action only in this case, don't put annotation on method of standard Java classes.
