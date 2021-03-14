@@ -23,14 +23,9 @@ public class RulesEngineTest {
                         .when("weather.change")
                         .and(() -> true)
                         .then(() -> System.out.println("Weather changed"))
-                        .build())
-                .saveRule(RulesEngineBuilder
-                        .newRule("test2")
-                        .when("weather.change")
-                        .then(() -> System.out.println("Yuhuuu"))
                         .build());
 
-        this.weatherService.changeWeather();
+        this.weatherService.weatherChanged();
     }
 
 }

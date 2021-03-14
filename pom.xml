@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.rawjute</groupId>
-    <artifactId>rulesengine</artifactId>
+    <artifactId>rules-engine</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>rulesengine</name>
     <description>Rules Engine for Spring</description>

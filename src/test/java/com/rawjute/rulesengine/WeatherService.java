@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 public class WeatherService {
 
     @Trigger("weather.change")
-    public void changeWeather() {
-        System.out.println("Hello");
+    public void weatherChanged() {
+        System.out.println("Weather rule test");
     }
 
 }
