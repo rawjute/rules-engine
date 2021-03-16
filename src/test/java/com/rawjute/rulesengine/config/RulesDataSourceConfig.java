@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RulesDataSourceConfig {
 
-    @Bean
+    @Bean("MapRulesDataSource")
     public RulesDataSource getRulesDataSource() {
         return new MapRulesDataSource();
     }

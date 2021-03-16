@@ -5,18 +5,20 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Aspect
 @Component
 public class RulesEngineAspect {
 
-    private final RulesEngine rulesEngine;
+    private final List<RulesEngine> rulesEngineList;
 
-    public RulesEngineAspect(RulesEngine rulesEngine) {
-        this.rulesEngine = rulesEngine;
+    public RulesEngineAspect(List<RulesEngine> rulesEngineList) {
+        this.rulesEngineList = rulesEngineList;
     }
 
     @After("@annotation(trigger)")
     public void after(JoinPoint joinPoint, Trigger trigger) {
-        rulesEngine.evaluateRules(trigger.value());
+        rulesEngineList.forEach(r -> r.evaluateRules(trigger.value()));
     }
 }
