@@ -28,7 +28,7 @@ public abstract class AbstractRulesEngine implements RulesEngine {
     @Override
     public void evaluateRules(String triggerName) {
         rulesDataSource.getRules().stream()
-                .filter(e -> !e.getTrigger().isPresent() ||  e.getTrigger().get().equals(triggerName))
+                .filter(e -> !e.getTrigger().isPresent() || e.getTrigger().get().equals(triggerName))
                 .filter(r -> r.getConditions().stream().allMatch(RuleCondition::checkCondition))
                 .forEach(r -> r.getActions().forEach(a -> {
                     if (a instanceof VoidRuleAction) {
