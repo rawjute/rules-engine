@@ -132,7 +132,7 @@ Rule rule = RulesEngineBuilder
 rulesEngine.saveRule(rule);
 ```
 
-We created a rule with the "weather-rule-1", but nothing changes until we set the `@Trigger` annotation to a method. Let's add the annotation to the previous method:
+We created a rule with the `"weather.change"`, but nothing changes until we set the `@Trigger` annotation to a method. Let's add the annotation to the previous method:
 ```java
 @Trigger("weather.change")
 public void weatherChanged() {  
