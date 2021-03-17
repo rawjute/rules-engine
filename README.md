@@ -34,7 +34,7 @@ Then you have to provide your own implementation of the `RulesDataSource`, by ad
 @Configuration  
 public class RulesDataSourceConfig {  
   
-  @Bean
+  @Bean("MapRulesDataSource")
   public RulesDataSource getRulesDataSource() {  
 	  return new MapRulesDataSource();  
   }
@@ -66,6 +66,20 @@ public class MapRulesDataSource implements RulesDataSource {
 	
 }
 ```
+
+Finally you have to provide your instance of `RulesEngine` passing the `RulesDataSource`
+
+```java
+@Service
+public class RulesEngineImpl extends AbstractRulesEngine {
+
+    public RulesEngineImpl(@Qualifier("MapRulesDataSource") RulesDataSource rulesDataSource) {
+        super(rulesDataSource);
+    }
+}
+```
+
+You can create as many `RulesEngine` as you want, passing different `RulesDataSource` for each one.
 
 ## Create Rules
 To create new rules you should use the `RulesEngineBuilder` class, that provides a mini DSL for defining all rules attributes.
